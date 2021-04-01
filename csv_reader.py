@@ -1,5 +1,6 @@
 import csv
 import os
+import json
 
 
 
@@ -28,3 +29,6 @@ def csv_to_dictlist():
                         
 
     return homeless_count_by_state
+
+with open('./data/deDomiciled.json', 'w') as output:
+    json.dump(csv_to_dictlist() , output)
