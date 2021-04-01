@@ -1,5 +1,14 @@
 import model 
 
 def get_data_by_year(year):
-    """user input from year dropdown"""
-    Data_year.query.get(data_year)
+    """returns year from year chosen from dropdown"""
+    pass
+
+
+def get_data_by_state_and_year(state)
+    """gets state from map click by state id"""
+    pass
+
+def create_state_PIT_data(state, count, year)
+    
+    

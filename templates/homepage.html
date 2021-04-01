@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}UnDomiciled Data{% endblock %}
+
+{% block body %}
+  <h1>Welcome!</h1>
+
+  <h2>Navigation</h2>
+  <ul>
+    <li>
+        {% for state in states%} 
+        <a href="/state/ {{state.id}}" >
+        {{state.name}}
+        </a>
+    </li>
+  </ul>
+
+  
+{% endblock %}
