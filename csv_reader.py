@@ -30,5 +30,6 @@ def csv_to_dictlist():
 
     return homeless_count_by_state
 
-with open('./data/deDomiciled.json', 'w') as output:
-    json.dump(csv_to_dictlist() , output)
+
+with open('./data/deDomiciled.json', 'w') as f:
+    json.dump(csv_to_dictlist(), f)

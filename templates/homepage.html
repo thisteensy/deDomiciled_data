@@ -6,12 +6,13 @@
 
   <h2>Navigation</h2>
   <ul>
+    {% for state in all_states %} 
     <li>
-        {% for state in states%} 
-        <a href="/state/ {{state_data.data_year}}" >
-        {{state_data.state_id}}
+        <a href="/ {{state.data_id}}" >
+        {{state.state_id}}
         </a>
     </li>
+    {% endfor %}
   </ul>
 
   

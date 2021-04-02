@@ -4,20 +4,20 @@ from model import db, StateData, connect_to_db
 
 def get_data_by_year(data_year):
     """returns year from year chosen from dropdown"""
-    return StateData.query.filter(State.data_year).all()
+    return StateData.query.filter(StateData.data_year == 2019).all()
 
 
 def get_data_by_state_and_year(state):
     """gets state from map click by state id"""
     pass
 
-def create_state_PIT_data(state, count, year):
+def create_state_pit_data(state_id, pit_count, data_year):
     """create and return an entry of state Point in Time count for a state"""
-    pit_count = StateData(state=state_id,
-                          count=count,
-                          year=data_year)
+    state_data = StateData(state_id=state_id,
+                          pit_count=pit_count,
+                          data_year=data_year)
     
-    db.session.add(pit_count)
+    db.session.add(state_data)
     db.session.commit()
 
     return pit_count
