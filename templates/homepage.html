@@ -5,11 +5,12 @@
   <h1>Welcome!</h1>
 
   <h2>Navigation</h2>
+ 
   <ul>
     {% for state in all_states %} 
     <li>
-        <a href="/ {{state.data_id}}" >
-        {{state.state_id}}
+        <a href="/state/ {{state.state_id}}" >
+        {{state.state_id}} - {{state.pit_count}}
         </a>
     </li>
     {% endfor %}

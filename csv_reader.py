@@ -2,11 +2,60 @@ import csv
 import os
 import json
 
-
-
-def csv_to_dictlist():
+states = {"AL":"Alabama",
+          "AK":"Alaska",
+          "AZ":"Arizona",
+          "AR":"Arkansas",
+          "CA":"California",
+          "CO":"Colorado",
+          "CT":"Connecticut",
+          "DE":"Delaware",
+          "FL":"Florida",
+          "GA":"Georgia",
+          "HI":"Hawaii",
+          "ID":"Idaho",
+          "IL":"Illinois",
+          "IN":"Indiana",
+          "IA":"Iowa",
+          "KS":"Kansas",
+          "KY":"Kentucky",
+          "LA":"Louisiana",
+          "ME":"Maine",
+          "MD":"Maryland",
+          "MA":"Massachusetts",
+          "MI":"Michigan",
+          "MN":"Minnesota",
+          "MS":"Mississippi",
+          "MO":"Missouri",
+          "MT":"Montana",
+          "NE":"Nebraska",
+          "NV":"Nevada",
+          "NH":"New Hampshire",
+          "NJ":"New Jersey",
+          "NM":"New Mexico",
+          "NY":"New York",
+          "NC":"North Carolina",
+          "ND":"North Dakota",
+          "OH":"Ohio",
+          "OK":"Oklahoma",
+          "OR":"Oregon",
+          "PA":"Pennsylvania",
+          "RI":"Rhode Island",
+          "SC":"South Carolina",
+          "SD":"South Dakota",
+          "TN":"Tennessee",
+          "TX":"Texas",
+          "UT":"Utah",
+          "VT":"Vermont",
+          "VA":"Virginia",
+          "WA":"Washington",
+          "WV":"West Virginia",
+          "WI":"Wisconsin",
+          "WY":"Wyoming"}
+homeless_count_by_state = []
+def pitcount_to_dictlist():
+    global homeless_count_by_state
     directory = "data/PIT_csv_years"
-    homeless_count_by_state = []
     n = len(homeless_count_by_state)
     for filename in os.listdir(directory):
         if filename.endswith(".csv"):
@@ -23,13 +72,42 @@ def csv_to_dictlist():
                         filtered_list[0]['pit_count'] += count
                     
                     else:
-                        homeless_count_by_state.append({'state_id' : state_abr,
+                        if state_abr in states:
+                            name = states[state_abr]
+                            homeless_count_by_state.append({'state_id' : state_abr,
+                                                        'state_name': name,
                                                         'data_year' : year, 
                                                         'pit_count' : count})
+                        else:
+                            continue
+                        
                         
 
-    return homeless_count_by_state
+
+def smhaspending_to_dictlist():
+    global homeless_count_by_state
+    directory = "data/SMHA_Exp_years"
+    undesirable_chars = ',$'
+    n = len(homeless_count_by_state)
+    for filename in os.listdir(directory):
+        if filename.endswith(".csv"):
+            with open(f"data/SMHA_Exp_years/{filename}", newline='') as csvfile:
+                for row in csv.DictReader(csvfile, delimiter=' '):
+                    year = int(filename[:4])
+                    name = row["State"].replace('-', ' ')
+                    
+                    per_capita = int(float(row["per_capita"].lstrip('$').replace(',', '')))
+                    
+                    if name in states.values():
+                        state_id = list(states.keys())[list(states.values()).index(name)]
+
+                    filtered_list = [i for i in homeless_count_by_state if i.get('state_id') == state_id and i.get('data_year') == year]
+                    if filtered_list:
+                        filtered_list[0]['state_pc_mh_spending'] = per_capita
+
+pitcount_to_dictlist()
+smhaspending_to_dictlist()
 
 
 with open('./data/deDomiciled.json', 'w') as f:
-    json.dump(csv_to_dictlist(), f)
+    json.dump(homeless_count_by_state, f)

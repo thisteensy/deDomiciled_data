@@ -14,6 +14,7 @@ class StateData(db.Model):
                         autoincrement=True,
                         primary_key=True)
     state_id = db.Column(db.String)
+    state_name = db.Column(db.String)
     data_year = db.Column(db.Integer)
     pit_count = db.Column(db.Integer)
     li_rental_inv = db.Column(db.Integer)
