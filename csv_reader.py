@@ -1,6 +1,7 @@
 import csv
 import os
 import json
+import datagetter
 
 states = {"AL":"Alabama",
           "AK":"Alaska",
@@ -80,9 +81,6 @@ def pitcount_to_dictlist():
                                                         'pit_count' : count})
                         else:
                             continue
-                        
-                        
-
 
 def smhaspending_to_dictlist():
     global homeless_count_by_state
@@ -104,9 +102,40 @@ def smhaspending_to_dictlist():
                     filtered_list = [i for i in homeless_count_by_state if i.get('state_id') == state_id and i.get('data_year') == year]
                     if filtered_list:
                         filtered_list[0]['state_pc_mh_spending'] = per_capita
+                    
+def lowrent_count_to_dictlist():
+    global homeless_count_by_state
+    for state, timeseries in datagetter.get_low_rent_count().items():
+        for year, count in timeseries.items():
+            filtered_list = [i for i in homeless_count_by_state if i.get('state_id') == state and i.get('data_year') == int(year)]
+            if filtered_list:
+                filtered_list[0]["li_rental_inv"] = int(count)
+
+def belowpoverty_population_to_dictlist():
+    global homeless_count_by_state
+    for state, timeseries in datagetter.get_belowpoverty_population().items():
+        for year, count in timeseries.items():
+            filtered_list = [i for i in homeless_count_by_state if i.get('state_id') == state and i.get('data_year') == int(year)]
+            if filtered_list:
+                filtered_list[0]["state_below_poverty"] = int(count)
+
+def state_population_to_dictlist():
+    global homeless_count_by_state
+    for state, timeseries in datagetter.get_state_population().items():
+        for year, count in timeseries.items():
+            filtered_list = [i for i in homeless_count_by_state if i.get('state_id') == state and i.get('data_year') == int(year)]
+            if filtered_list:
+                filtered_list[0]["state_population"] = int(count)
+        
+
+
+
 
 pitcount_to_dictlist()
 smhaspending_to_dictlist()
+lowrent_count_to_dictlist()
+belowpoverty_population_to_dictlist()
+state_population_to_dictlist()
 
 
 with open('./data/deDomiciled.json', 'w') as f:

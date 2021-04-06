@@ -134,24 +134,29 @@ def get_low_rent_count():
     
     counts.drop(labels=["geoId/11", "geoId/72"], axis=0, inplace=True)
     counts.rename(index=geoIds, inplace = True, errors = "raise")
+    
 
-
-    return counts
+    return counts.to_dict('index')
 
 def get_belowpoverty_population():
     states = dcp.get_places_in(['country/USA'], 'State')['country/USA']
+    
     bp_population = dcp.build_time_series_dataframe(states, 'Count_Person_BelowPovertyLevelInThePast12Months')
+    
     bp_population.drop(labels=["geoId/11", "geoId/72"], axis=0, inplace=True)
     bp_population.rename(index=geoIds, inplace = True, errors = "raise")
     
-    return bp_population
+    
+    return bp_population.to_dict('index')
 
 def get_state_population():
     states = dcp.get_places_in(['country/USA'], 'State')['country/USA']
     years = list(range(2007,2020))
     string_years = [str(year) for year in years]
+
     population_male= dcp.build_time_series_dataframe(states, 'Count_Person_Male')
     population_female= dcp.build_time_series_dataframe(states, 'Count_Person_Female')
+
     population = population_male.add(population_female, fill_value=0)
     column_names = list(population)
     known_years = [year for year in string_years if year in column_names]
@@ -162,4 +167,4 @@ def get_state_population():
     
     
 
-    return pop_years
+    return pop_years.to_dict('index')
