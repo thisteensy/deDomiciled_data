@@ -20,6 +20,7 @@ class StateData(db.Model):
     li_rental_inv = db.Column(db.Integer)
     state_pc_mh_spending = db.Column(db.Integer)
     state_population = db.Column(db.Integer)
+    state_below_poverty = db.Column(db.Integer)
 
     def __repr__(self):
         return f'<data_id = {self.data_id} state_id={self.state_id} data_year={self.data_year}>'
