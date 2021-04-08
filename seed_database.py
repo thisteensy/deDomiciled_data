@@ -21,6 +21,6 @@ for data in statedata:
                                                   data['pit_count'],
                                                   data['data_year'])
     
-    db_statedata = crud.create_state_pit_data(state_id, state_name, pit_count, data_year)
+    db_statedata = crud.create_state_data(state_id, state_name, pit_count, data_year)
     statedata_in_db.append(db_statedata)
 

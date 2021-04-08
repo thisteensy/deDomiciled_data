@@ -1,16 +1,31 @@
 {% extends 'base.html' %}
+
+
 {% block title %}UnDomiciled Data{% endblock %}
 
+{% block head %}
+
+{% endblock %}
+
 {% block body %}
+
+
   <h1>Welcome!</h1>
 
   <h2>Navigation</h2>
- 
+  <label for="data-year">Choose a year:</label>
+<form id="data-year" action = "/year/ {{ data_year }}">
+  <select name="years" id="data-year">
+    {% for year in years %} 
+      <option value="year">{{ year }} </option>
+    {% endfor %}
+  </select>
+</form>
   <ul>
     {% for state in all_states %} 
     <li>
         <a href="/state/ {{state.state_id}}" >
-        {{state.state_id}} - {{state.pit_count}}
+        {{state.state_name}} - {{state.pit_count}}
         </a>
     </li>
     {% endfor %}
