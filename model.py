@@ -1,6 +1,7 @@
 """model for unDomiciled Data app"""
 
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.sql import func
 
 db = SQLAlchemy()
 
@@ -17,10 +18,10 @@ class StateData(db.Model):
     state_name = db.Column(db.String)
     data_year = db.Column(db.Integer)
     pit_count = db.Column(db.Integer)
-    li_rental_inv = db.Column(db.Integer)
-    state_pc_mh_spending = db.Column(db.Integer)
-    state_population = db.Column(db.Integer)
-    state_below_poverty = db.Column(db.Integer)
+    li_rental_inv = db.Column(db.Integer, nullable = True)
+    state_below_poverty = db.Column(db.Integer, nullable = True)
+    state_population = db.Column(db.Integer, nullable = True)
+    
 
     def __repr__(self):
         return f'<data_id = {self.data_id} state_id={self.state_id} data_year={self.data_year}>'

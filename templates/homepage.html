@@ -14,7 +14,7 @@
 
   <h2>Navigation</h2>
   <label for="data-year">Choose a year:</label>
-<form id="data-year" action = "/year/ {{ data_year }}">
+<form id="data-year">
   <select name="years" id="data-year">
     {% for year in years %} 
       <option value="year">{{ year }} </option>
@@ -25,7 +25,7 @@
     {% for state in all_states %} 
     <li>
         <a href="/state/ {{state.state_id}}" >
-        {{state.state_name}} - {{state.pit_count}}
+        {{state.state_name}} - {{state.pit_count}} - {{state.state_population}}
         </a>
     </li>
     {% endfor %}

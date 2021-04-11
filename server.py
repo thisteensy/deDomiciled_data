@@ -22,35 +22,58 @@ def all_states_landing():
 
    return render_template('index.html', all_states = all_states, years = years)
 
-@app.route('/year <data_year>')
-# def all_states_by_year(data_year):
+@app.route('/year/<data_year>')
+def all_states_by_year(data_year):
 
-#    chosen_year = request.form.get('data-year')
-#    all_states = crud.get_data_by_year(data_year)
+   all_states = crud.get_data_by_year(data_year)
+   years = reversed(range(2011, 2020))
    
-#    return redirect('/', all_states = all_states)
+   return render_template('index.html', all_states = all_states, years = years)
 
 
 
-@app.route('/state/ <state_id>')
-def show_state(state_id):
+# @app.route('/state/ <state_id>')
+# def show_state(state_id):
    
-   state_data = crud.get_data_by_state_and_year(state_id)
-   
-
-   return render_template("state.html", state_data = state_data)
+#    state_data = crud.get_data_by_state_and_year(state_id)
    
 
-@app.route('/get-data')
+#    return render_template("state.html", state_data = state_data)
+   
+
+@app.route('/load-data')
 def send_data():
    
    data = []
 
    state_data = crud.get_data_by_year(2019)
-  
-   for state in state_data:
-      data.append([state.state_id, state.pit_count])
 
+   state_ranking=[]
+
+   for state in state_data:
+      homeless_per100000 = state.pit_count/state.state_population*100000
+      state_ranking.append(homeless_per100000)
+
+   state_ranking.sort()
+   state_ranking_quintiles = {}
+   state_ranking_quintiles[1]=state_ranking[:10]
+   state_ranking_quintiles[2]=state_ranking[10:20]
+   state_ranking_quintiles[3]=state_ranking[20:30]
+   state_ranking_quintiles[4]=state_ranking[30:40]
+   state_ranking_quintiles[5]=state_ranking[40:50]
+   
+   for state in state_data:
+      homeless_per100000 = state.pit_count/state.state_population*100000
+      for key, values in state_ranking_quintiles.items():
+         if homeless_per100000 in values:
+            data.append([state.state_id, 
+                        state.pit_count,
+                        state.state_name, 
+                        homeless_per100000, 
+                        key])
+      
+
+   
    return jsonify(data)
 
 
