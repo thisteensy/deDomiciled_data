@@ -32,45 +32,61 @@ def all_states_by_year(data_year):
 
 
 
-# @app.route('/state/ <state_id>')
-# def show_state(state_id):
+@app.route('/state/<state>')
+def show_state(state):
    
-#    state_data = crud.get_data_by_state_and_year(state_id)
+   data = []
+   state_data = crud.get_data_by_state(state)
+   for year in state_data:
+      data.append([year.state_id, 
+                   year.state_name,
+                   year.data_year, 
+                   year.pit_count,
+                   year.state_below_poverty,
+                   year.li_rental_inv,
+                   year.state_population])
+   print('***************************')
+   print(data)
+   print('***************************')
+
+   return render_template("state.html", data = data, state=state)
    
 
-#    return render_template("state.html", state_data = state_data)
-   
-
-@app.route('/load-data')
-def send_data():
+@app.route('/load-data/<year>')
+def send_data(year):
    
    data = []
 
-   state_data = crud.get_data_by_year(2019)
+   state_data = crud.get_data_by_year(year)
 
    state_ranking=[]
 
    for state in state_data:
-      homeless_per100000 = state.pit_count/state.state_population*100000
+      homeless_per100000 = round(state.pit_count/state.state_population*100000)
       state_ranking.append(homeless_per100000)
 
    state_ranking.sort()
-   state_ranking_quintiles = {}
-   state_ranking_quintiles[1]=state_ranking[:10]
-   state_ranking_quintiles[2]=state_ranking[10:20]
-   state_ranking_quintiles[3]=state_ranking[20:30]
-   state_ranking_quintiles[4]=state_ranking[30:40]
-   state_ranking_quintiles[5]=state_ranking[40:50]
+   state_ranking_decile = {}
+   state_ranking_decile[1]=state_ranking[:5]
+   state_ranking_decile[2]=state_ranking[5:10]
+   state_ranking_decile[3]=state_ranking[10:15]
+   state_ranking_decile[4]=state_ranking[15:20]
+   state_ranking_decile[5]=state_ranking[20:25]
+   state_ranking_decile[6]=state_ranking[25:30]
+   state_ranking_decile[7]=state_ranking[30:35]
+   state_ranking_decile[8]=state_ranking[35:40]
+   state_ranking_decile[9]=state_ranking[40:45]
+   state_ranking_decile[10]=state_ranking[45:50]
    
    for state in state_data:
-      homeless_per100000 = state.pit_count/state.state_population*100000
-      for key, values in state_ranking_quintiles.items():
+      homeless_per100000 = round(state.pit_count/state.state_population*100000)
+      for key, values in state_ranking_decile.items():
          if homeless_per100000 in values:
             data.append([state.state_id, 
                         state.pit_count,
-                        state.state_name, 
+                        state.state_name,
                         homeless_per100000, 
-                        key])
+                        key, year])
       
 
    

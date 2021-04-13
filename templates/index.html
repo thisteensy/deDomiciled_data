@@ -10,20 +10,23 @@
 <style type="text/css">
 
 /* On mouse hover, lighten state color */
+
 path:hover {
 	fill-opacity: .7;
-}
+	}
 
+/* figure out div display on hover */
 
 /* Style for Custom Tooltip */
 div.tooltip {   
  	position: absolute;           
 	text-align: center;           
-	width: 60px;                  
+	width: 90px;                  
 	height: 28px;                 
 	padding: 2px;             
 	font: 12px sans-serif;        
-	background: white;   
+	background: rgb(49, 60, 75);
+	color: white;   
 	border: 0px;      
 	border-radius: 8px;           
 	pointer-events: none;         
@@ -41,17 +44,19 @@ body {
 	top:350px;
 }
 
+
 </style>
 </head>
 <body>
 	<label for="data-year">Choose a year:</label>
 <form>
-  <select name="years" id="data-year" onchange="changeYear()">
+  <select name="years" id="data-year" onchange="renderMap()">
     {% for year in years %} 
       <option>{{ year }} </option>
     {% endfor %}
   </select>
 </form>
+
 <script type="text/javascript">
 
 
@@ -84,9 +89,10 @@ var path = d3.geo.path()               // path generator that will convert GeoJS
 		
 // Define linear scale for output
 var color = d3.scale.linear()
-			  .range(["#c8f6bb","#98c78a","#699a5b","#3d6f2f","#0c4601"]).domain([1,2,3,4,5]);
+			  .range(["#fafa6e", "#c4ec74", "#92dc7e", "#64c987", "#39b48e", "#089f8f", "#00898a", "#08737f", "#215d6e", "#2a4858"]).domain([1,2,3,4,5,6,7,8,9,10]);
 
-var legendText = ["first quintile", "second quintile", "third quintile", "fourth quintile", "fifth quartile"];
+var legendText = ["91+ decile", "81-90 perecentile", "71-80 decile", "61-70 decile", "51-60 decile",
+				  "41-50 decile", "31-40 decile", "21-30 decile", "11-20 decile", "1-10 decile"];
 
 //Create SVG element and append map to the SVG
 var svg = d3.select("body")
@@ -101,28 +107,43 @@ var div = d3.select("body")
     		.style("opacity", 0);
 
 
-// var year = document.getElementById("mySelect").value;
-// if (year === Undefined) {
-// 	year = 2019
-// } else {
-// 	continue
-// }
+function setYear(){
+  var year = document.getElementById("data-year").value;
+	if (year === null) {
+		year = 2019
+	} else {
+		year = year
+		console.log(year)
+	};
+	return (year)
+};
 
-d3.json("/load-data", function(state_data){
-    console.log(state_data)
 
+function renderMap() {
+d3.json(`/load-data/${setYear()}`, function(state_data){
+	console.log(state_data)
 d3.json("/us-states.json", function(states_json) {
-// data[0] = ["AK", 1907, "Alaska", 258.7278242984365, 5]
-// states_json.features[j].properties = {'Alaska': {'quartile': 5}, ...}
+
 // Loop through each state data value in the .csv file
 for (var i of state_data) {
-    
+   
+// Grab State ID
+	var dataStateID = i[0]
    
 // Grab State Name
     var dataState = i[2];
 
-// Grab data value 
+// Grab decile value 
     var dataValue = i[4];
+
+// Grab data year
+	var dataYear = i[5]
+
+// Grab count per 100,000
+	var dataCount = i[3]
+
+//***send all data to the front
+
 
 // Find the corresponding state inside the GeoJSON
     for (var j = 0; j < states_json.features.length; j++)  {
@@ -131,15 +152,20 @@ for (var i of state_data) {
         if (dataState == jsonState) {
 
     // Copy the data value into the JSON
-	console.log(states_json.features[j].properties) //has only a key 'name'
-    states_json.features[j].properties.quintile = dataValue;
-    
+	//has only a key 'name'
+    states_json.features[j].properties.decile = dataValue;
+	states_json.features[j].properties.count = dataCount
     // Stop looking through the JSON
     break;
     }
   }
 }
+function handleClick(path) {
+	var state = path.properties.name
+	window.location.href = `/state/${state}`;
+};
 
+        
 
 // // Bind the data to the SVG and create one path per GeoJSON feature
 svg.selectAll("path")
@@ -147,14 +173,31 @@ svg.selectAll("path")
 	.enter()
 	.append("path")
 	.attr("d", path)
+	.attr("id", "hover-text")
+	.on("click", handleClick)
+	.on("mouseover", function(d) {	
+		var state = d.properties.name
+		var count = d.properties.count	
+        div.transition()		
+            .duration(200)		
+            .style("opacity", .9);		
+        div.html(state + "<br/>"  + count)	
+            .style("left", (d3.event.pageX) + "px")		
+            .style("top", (d3.event.pageY - 28) + "px");	
+            })									
+    .on("mouseout", function(d) {		
+        div.transition()		
+        	.duration(500)		
+            .style("opacity", 0);
+		})
 	.style("stroke", "#fff")
 	.style("stroke-width", "1")
 	.style("fill", function(d) {
 
 	// Get data value
 
-	var value = d.properties.quintile;
-	console.log(value)
+	var value = d.properties.decile;
+	
 	if (value) {
 	//If value exists…
 	return color(value);
@@ -162,10 +205,14 @@ svg.selectAll("path")
 	//If value is undefined…
 	return "rgb(213,222,217)";
 	}
+	
+});	
 });
 });
-});
+};
 
+
+renderMap()
         
 // Modified Legend Code from Mike Bostock: http://bl.ocks.org/mbostock/3888852
 var legend = d3.select("body").append("svg")

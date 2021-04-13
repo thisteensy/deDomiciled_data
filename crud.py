@@ -13,9 +13,9 @@ def get_data_by_year(data_year):
 #     return allstates_for_year.query(func.sum(StateData.state_population))
 
 
-def get_data_by_state_and_year(state_id):
+def get_data_by_state(state_name):
     """gets state from map click by state id"""
-    return StateData.query.filter(StateData.state_id == state_id, StateData.data_year == 2019).one()
+    return StateData.query.filter(StateData.state_name == state_name).all()
 
 def create_state_data(state_id, state_name, data_year, pit_count, li_rental_inv=None, state_below_poverty=None, state_population=None):
     """create and return an entry of state Point in Time count for a state"""
