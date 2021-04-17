@@ -15,8 +15,6 @@ path:hover {
 	fill-opacity: .7;
 	}
 
-/* figure out div display on hover */
-
 /* Style for Custom Tooltip */
 div.tooltip {   
  	position: absolute;           
@@ -89,7 +87,8 @@ var path = d3.geo.path()               // path generator that will convert GeoJS
 		
 // Define linear scale for output
 var color = d3.scale.linear()
-			  .range(["#fafa6e", "#c4ec74", "#92dc7e", "#64c987", "#39b48e", "#089f8f", "#00898a", "#08737f", "#215d6e", "#2a4858"]).domain([1,2,3,4,5,6,7,8,9,10]);
+			  .range(["#fafa6e", "#c4ec74", "#92dc7e", "#64c987", "#39b48e", "#089f8f", "#00898a", "#08737f", "#215d6e", "#2a4858"])
+			  .domain([1,2,3,4,5,6,7,8,9,10]);
 
 var legendText = ["91+ decile", "81-90 perecentile", "71-80 decile", "61-70 decile", "51-60 decile",
 				  "41-50 decile", "31-40 decile", "21-30 decile", "11-20 decile", "1-10 decile"];
@@ -163,9 +162,7 @@ for (var i of state_data) {
 function handleClick(path) {
 	var state = path.properties.name
 	window.location.href = `/state/${state}`;
-};
-
-        
+};     
 
 // // Bind the data to the SVG and create one path per GeoJSON feature
 svg.selectAll("path")

@@ -15,7 +15,6 @@ app.jinja_env.undefined = StrictUndefined
 @app.route('/')
 def all_states_landing():
    
-   # chosen_year = request.form.get('data_year')
    all_states = crud.get_data_by_year(2019)
    years = reversed(range(2011, 2020))
    
@@ -32,24 +31,53 @@ def all_states_by_year(data_year):
 
 
 
-@app.route('/state/<state>')
+@app.route('/state/<state>') 
 def show_state(state):
    
-   data = []
-   state_data = crud.get_data_by_state(state)
-   for year in state_data:
-      data.append([year.state_id, 
-                   year.state_name,
-                   year.data_year, 
-                   year.pit_count,
-                   year.state_below_poverty,
-                   year.li_rental_inv,
-                   year.state_population])
-   print('***************************')
-   print(data)
-   print('***************************')
 
-   return render_template("state.html", data = data, state=state)
+   return render_template("state.html", state = state)
+   
+
+@app.route('/load-state-data/<state>')
+def send_yearsdata(state):
+
+   dict_data_unsorted = []
+   state_data = crud.get_data_by_state(state)
+   unhoused_percent_change = [0]
+   below_poverty_percent_change = [0]
+   available_housing_percent_change = [0]
+   population_percent_change = [0]
+   
+   
+   for year in state_data:
+      if year.data_year >= 2011:
+         
+         dict_data_unsorted.append({"date": year.data_year,
+                     "Unhoused Population*": year.pit_count, 
+                     "Households Below Poverty*": round(year.state_below_poverty/3),
+                     "Available Low Income Housing*": year.li_rental_inv,
+                     "Total Population": year.state_population})
+   dict_data = sorted(dict_data_unsorted, key = lambda i: i["date"])
+
+   def get_percent_change(prior, current):
+      return round(((year.current-year.prior)/year.prior)*100)
+   
+   for i, entry in enumerate(dict_data[1:]):
+      "unhoused_percent_change" = (get_percent_change(dict_data[i], year.pit_count))
+ 
+
+   csv_file = "state_data.csv"
+   fieldnames = [i for i in dict_data[0].keys()]
+   
+   
+   with open(csv_file, 'w') as csvfile:
+      writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+      writer.writeheader()
+      for data in dict_data:
+         writer.writerow(data)
+   
+   
+   return open("state_data.csv", "r").read()
    
 
 @app.route('/load-data/<year>')

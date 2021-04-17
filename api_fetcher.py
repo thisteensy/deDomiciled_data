@@ -129,7 +129,7 @@ def get_low_rent_count():
 
     years = list(range(2007,2020))
     counts = counts0
-    for count in add_dfs_under750:
+    for count in add_dfs_under500:
         counts = counts.add(count, fill_value=0)
     
     counts.drop(labels=["geoId/11", "geoId/72"], axis=0, inplace=True)
@@ -158,7 +158,28 @@ def get_belowpoverty_population():
     states = dcp.get_places_in(['country/USA'], 'State')['country/USA']
     
     bp_population = dcp.build_time_series_dataframe(states, 'Count_Person_BelowPovertyLevelInThePast12Months')
+
+    # adultf_group1 = dcp.build_time_series_dataframe(states, 'Count_Person_18To24Years_Female_BelowPovertyLevelInThePast12Months')
+    # adultf_group2 = dcp.build_time_series_dataframe(states, 'Count_Person_60To74Years_Female_BelowPovertyLevelInThePast12Months')
+    # adultf_group3 = dcp.build_time_series_dataframe(states, 'Count_Person_75To84Years_Female_BelowPovertyLevelInThePast12Months')
+    # adultf_group4 = dcp.build_time_series_dataframe(states, 'Count_Person_85OrMoreYears_Female_BelowPovertyLevelInThePast12Months')
+    # adultm_group1 = dcp.build_time_series_dataframe(states, 'Count_Person_18To24Years_Male_BelowPovertyLevelInThePast12Months')
+    # adultm_group2 = dcp.build_time_series_dataframe(states, 'Count_Person_60To74Years_Male_BelowPovertyLevelInThePast12Months')
+    # adultm_group3 = dcp.build_time_series_dataframe(states, 'Count_Person_75To84Years_Male_BelowPovertyLevelInThePast12Months')
+    # adultm_group4 = dcp.build_time_series_dataframe(states, 'Count_Person_85OrMoreYears_Male_BelowPovertyLevelInThePast12Months')
+
     
+    # Count_Person_18To59Years_BelowPovertyLevelInThePast12Months
+    # Count_Person_60To74Years_BelowPovertyLevelInThePast12Months
+    # Count_Person_75To84Years_BelowPovertyLevelInThePast12Months
+    # Count_Person_85OrMoreYears_BelowPovertyLevelInThePast12Months
+
+    # add_adult_counts = [adultf_group2, adultf_group3, adultf_group4, adultm_group1, adultm_group2, adultm_group3, adultm_group4]
+    # bp_population = adultf_group1
+
+    # for count in add_adult_counts:
+    #     bp_population = bp_population.add(count, fill_value=0)
+
     bp_population.drop(labels=["geoId/11", "geoId/72"], axis=0, inplace=True)
     bp_population.rename(index=geoIds, inplace = True, errors = "raise")
     
