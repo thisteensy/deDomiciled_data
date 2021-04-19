@@ -43,29 +43,33 @@ def send_yearsdata(state):
 
    dict_data_unsorted = []
    state_data = crud.get_data_by_state(state)
-   unhoused_percent_change = [0]
-   below_poverty_percent_change = [0]
-   available_housing_percent_change = [0]
-   population_percent_change = [0]
-   
    
    for year in state_data:
       if year.data_year >= 2011:
          
          dict_data_unsorted.append({"date": year.data_year,
-                     "Unhoused Population*": year.pit_count, 
-                     "Households Below Poverty*": round(year.state_below_poverty/3),
-                     "Available Low Income Housing*": year.li_rental_inv,
-                     "Total Population": year.state_population})
+                                    "Unhoused Population*": year.pit_count, 
+                                    "Households Below Poverty*": round(year.state_below_poverty/3),
+                                    "Available Low Income Housing*": year.li_rental_inv,
+                                    "Total Population": year.state_population})
    dict_data = sorted(dict_data_unsorted, key = lambda i: i["date"])
+   dict_data[0]["unhoused_percent_change"] = 0
+   dict_data[0]["below_poverty_percent_change"] = 0
+   dict_data[0]["available_housing_percent_change"] = 0
+   dict_data[0]["population_percent_change"] = 0
 
    def get_percent_change(prior, current):
-      return round(((year.current-year.prior)/year.prior)*100)
+      return round(((current-prior)/prior)*100)
+   
+
    
    for i, entry in enumerate(dict_data[1:]):
-      "unhoused_percent_change" = (get_percent_change(dict_data[i], year.pit_count))
+      entry["unhoused_percent_change"] = get_percent_change(dict_data[i]["Unhoused Population*"], entry["Unhoused Population*"])
+      entry["below_poverty_percent_change"] = get_percent_change(dict_data[i]["Households Below Poverty*"], entry["Households Below Poverty*"])
+      entry["available_housing_percent_change"] = get_percent_change(dict_data[i]["Available Low Income Housing*"], entry["Available Low Income Housing*"])
+      entry["population_percent_change"] = get_percent_change(dict_data[i]["Total Population"], entry["Total Population"])
  
-
+   print(dict_data)
    csv_file = "state_data.csv"
    fieldnames = [i for i in dict_data[0].keys()]
    
@@ -75,7 +79,6 @@ def send_yearsdata(state):
       writer.writeheader()
       for data in dict_data:
          writer.writerow(data)
-   
    
    return open("state_data.csv", "r").read()
    
