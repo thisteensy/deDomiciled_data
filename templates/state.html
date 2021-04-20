@@ -48,11 +48,11 @@
 
 <p>Change data:
 <select id="selectbox">
-	<option value="percent_change"> Percent Change: Below Poverty, Unhoused, Low Income Housing, Population</option>
 	<option value="Households Below Poverty">Households Below Poverty</option>
     <option value="Unhoused Population">Unhoused Population</option>
     <option value="Available Low Income Housing">Low Income Housing Available</option>
 	<option value="Total Population">Total Population</option>
+	<option value="percent_change"> Percent Change: Below Poverty, Unhoused, Low Income Housing, Population</option>
 </select>
 </p>
 <svg id="chart" width="950" height="410"></svg>
@@ -129,8 +129,17 @@ function chart(data) {   // a function called chart
 
 	update(d3.select('#selectbox').property('value'), 0); // calls the update function passing the value from the element with the id #selectbox
 
-	function update(input, speed) {  // a function called update which takes two parameters: input and speed
+	function update(input, speed) {
+		
+		// d3.selectAll('.lineHoverText').remove()
 
+		// a function called update which takes two parameters: input and speed
+		// d3.selectAll('.lineHoverText')
+		// 	.data(copy)
+  		// 	.exit()
+  		// 	.remove();
+
+			  
 		var copy = keys.filter(f => f.includes(input)) // establishes a variable called copy and assigns it to the keys filtered by the includes method using the value input from the #selectbox element
 
 		var data_types = copy.map(function(id) { // establishes a variable called data_types and assigns it to 
@@ -147,7 +156,6 @@ function chart(data) {   // a function called chart
 		var min = d3.min(data_types, d => d3.min(d.values, c => c.counts))
 		var max = d3.max(data_types, d => d3.max(d.values, c => c.counts))
 		y.domain([min, max])
-			// .range([0,100])
 		 	.nice();
 
 		svg.selectAll(".y-axis").transition()
@@ -157,8 +165,8 @@ function chart(data) {   // a function called chart
 		var data_type = svg.selectAll(".data_types")
 			.data(data_types);
 
-		data_type.exit().remove();
-
+		data_type.exit().remove(); // It removes the data from the function that plots and draws the line,
+										// before adding the new data
 		data_type.enter().insert("g", ".focus").append("path")
 			.attr("class", "line data_types")
 			.style("stroke", d => z(d.id))
@@ -170,10 +178,12 @@ function chart(data) {   // a function called chart
 	}
 
 	function tooltip(copy) {
-		
+
 		var labels = focus.selectAll(".lineHoverText")
 			.data(copy)
 
+		labels.exit().remove() 
+	
 		labels.enter().append("text")
 			.attr("class", "lineHoverText")
 			.style("fill", d => z(d))
