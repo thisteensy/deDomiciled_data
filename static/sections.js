@@ -61,9 +61,9 @@ function setYear(){
 
 
 function renderMap() {
-d3.json(`/load-data/${setYear()}`, function(state_data){
+d3.json(`/load-data/${setYear()}`).then(function(state_data){
 	console.log(state_data)
-d3.json("/us-states.json", function(states_json) {
+d3.json("/us-states.json").then(function(states_json) {
 
 // Loop through each state data value in the .csv file
 for (var i of state_data) {
