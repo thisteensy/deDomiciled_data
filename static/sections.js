@@ -52,24 +52,34 @@ var div = d3.select("body")
 	.style("opacity", 0);
 
 
-function setYear() {
-	var year = document.getElementById("data-year").value;
-	if (year === null) {
-		year = 2019
-	} else {
-		year = year
-
-	};
-	return (year)
-
-};
 
 
+	
+var years = [2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011]
+renderMap(years.pop())
 
-function renderMap() {
-	console.log("it's here")
-	d3.json(`/load-data/${setYear()}`).then(function (state_data) {
+
+var mapInterval = setInterval(function () {
+	renderMap(years.pop())}, 3000)
+	
+
+	// 	for (var year of years) {
+// 		setInterval(function() {
+// 			renderMap(year)
+// 		}, 5000); 
 		
+// 	}
+// };
+
+
+
+function renderMap(year) {
+	
+	d3.json(`/load-data/${year}`).then(function (state_data) {
+		console.log(year)
+		if (year == 2019) {
+			clearInterval(mapInterval)
+		}
 		d3.json("/us-states.json").then(function (states_json) {
 
 
@@ -115,7 +125,7 @@ function renderMap() {
 				var state = path.properties.name
 				window.location.href = `/state/${state}`;
 			};
-			svg.exit().remove()
+			
 			// // Bind the data to the SVG and create one path per GeoJSON feature
 			svg.selectAll("path")
 				.data(states_json.features)
@@ -130,9 +140,6 @@ function renderMap() {
 					// Get data value
 
 								var decile = f.properties.decile;
-								console.log("$$$$$$$$$$$$$$$$$$$$$$")
-								console.log(decile)
-								console.log("$$$$$$$$$$$$$$$$$$$$$$")
 
 								if (decile) {
 									//If value exists…
@@ -166,10 +173,9 @@ function renderMap() {
 		
 	});
 
-
 };
 
-renderMap()
+
 
 // Modified Legend Code from Mike Bostock: http://bl.ocks.org/mbostock/3888852
 var legend = d3.select("body").append("svg")
