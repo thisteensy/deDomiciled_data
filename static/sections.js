@@ -51,6 +51,9 @@ var div = d3.select("body")
 	.attr("class", "tooltip")
 	.style("opacity", 0);
 
+var displayYear = d3.select("body")
+	.append("div")
+	.attr("class", "displayYear")
 
 
 
@@ -125,14 +128,14 @@ function renderMap(year) {
 				var state = path.properties.name
 				window.location.href = `/state/${state}`;
 			};
-			var displayYear = d3.select("body").append("svg")
-				.attr("class", "displayYear")
-				.attr("width", 140)
-				.attr("height", 12)
-			displayYear.append("text")
-				.data(year)
-				.attr("x", 867)
-				.attr("y", 172)
+
+			displayYear.join(
+					enter => enter.append("p")
+								.text(`${year}`)
+								.style("color", "#2a4858"),
+					update => update.text(`${year}`)
+				)
+				
 			// // Bind the data to the SVG and create one path per GeoJSON feature
 			svg.selectAll("path")
 				.data(states_json.features)
