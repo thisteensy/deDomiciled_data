@@ -125,7 +125,14 @@ function renderMap(year) {
 				var state = path.properties.name
 				window.location.href = `/state/${state}`;
 			};
-			
+			var displayYear = d3.select("body").append("svg")
+				.attr("class", "displayYear")
+				.attr("width", 140)
+				.attr("height", 12)
+			displayYear.append("text")
+				.data(year)
+				.attr("x", 867)
+				.attr("y", 172)
 			// // Bind the data to the SVG and create one path per GeoJSON feature
 			svg.selectAll("path")
 				.data(states_json.features)
