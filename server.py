@@ -85,12 +85,13 @@ def send_yearsdata(state):
 
 @app.route('/load-data/<year>')
 def send_data(year):
-   
+   # fix this so that the map colors update properly
    data = []
 
    state_data = crud.get_data_by_year(year)
 
    state_ranking=[]
+   print(state_ranking)
 
    for state in state_data:
       homeless_per100000 = round(state.pit_count/state.state_population*100000)

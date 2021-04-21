@@ -130,23 +130,10 @@ function chart(data) {   // a function called chart
 	update(d3.select('#selectbox').property('value'), 0); // calls the update function passing the value from the element with the id #selectbox
 
 	function update(input, speed) {
-		
-		// d3.selectAll('.lineHoverText').remove()
-
-		// a function called update which takes two parameters: input and speed
-		// d3.selectAll('.lineHoverText')
-		// 	.data(copy)
-  		// 	.exit()
-  		// 	.remove();
-
-			  
+				  
 		var copy = keys.filter(f => f.includes(input)) // establishes a variable called copy and assigns it to the keys filtered by the includes method using the value input from the #selectbox element
 
 		var data_types = copy.map(function(id) { // establishes a variable called data_types and assigns it to 
-	
-		// if (input === '*') {
-		// 	counts.range(0, 100)
-		// };	
 			
 			return {
 				id: id,
