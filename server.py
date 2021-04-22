@@ -12,6 +12,8 @@ app = Flask(__name__)
 app.secret_key = "dev"
 app.jinja_env.undefined = StrictUndefined
 
+
+
 @app.route('/')
 def all_states_landing():
 
@@ -63,8 +65,59 @@ def send_states():
 
 @app.route('/state/<state>') 
 def show_state(state):
+   states = {"AL":"Alabama",
+          "AK":"Alaska",
+          "AZ":"Arizona",
+          "AR":"Arkansas",
+          "CA":"California",
+          "CO":"Colorado",
+          "CT":"Connecticut",
+          "DE":"Delaware",
+          "FL":"Florida",
+          "GA":"Georgia",
+          "HI":"Hawaii",
+          "ID":"Idaho",
+          "IL":"Illinois",
+          "IN":"Indiana",
+          "IA":"Iowa",
+          "KS":"Kansas",
+          "KY":"Kentucky",
+          "LA":"Louisiana",
+          "ME":"Maine",
+          "MD":"Maryland",
+          "MA":"Massachusetts",
+          "MI":"Michigan",
+          "MN":"Minnesota",
+          "MS":"Mississippi",
+          "MO":"Missouri",
+          "MT":"Montana",
+          "NE":"Nebraska",
+          "NV":"Nevada",
+          "NH":"New Hampshire",
+          "NJ":"New Jersey",
+          "NM":"New Mexico",
+          "NY":"New York",
+          "NC":"North Carolina",
+          "ND":"North Dakota",
+          "OH":"Ohio",
+          "OK":"Oklahoma",
+          "OR":"Oregon",
+          "PA":"Pennsylvania",
+          "RI":"Rhode Island",
+          "SC":"South Carolina",
+          "SD":"South Dakota",
+          "TN":"Tennessee",
+          "TX":"Texas",
+          "UT":"Utah",
+          "VT":"Vermont",
+          "VA":"Virginia",
+          "WA":"Washington",
+          "WV":"West Virginia",
+          "WI":"Wisconsin",
+          "WY":"Wyoming"}
+   states = states.values()
    
-   return render_template("state.html", state = state)
+   return render_template("state.html", state = state, states = states)
    
 
 @app.route('/load-state-data/<state>')

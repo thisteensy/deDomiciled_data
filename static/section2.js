@@ -1,7 +1,7 @@
-const state = {{ state|tojson }};
-	console.log(state)
-	
-	d3.csv(`/load-state-data/${state}`).then(d => chart(d))
+// const state = {{ state|tojson }};
+// 	console.log(state)
+function renderChart(){	
+	d3.csv(`/load-state-data/${Louisiana}`).then(d => chart(d))
 	
 	function chart(data) {   // a function called chart
 		// data.sort(function (a,b) {return d3.ascending(a.date, b.date);});
@@ -173,3 +173,5 @@ const state = {{ state|tojson }};
 				update(this.value, 750);
 			})
 	}
+};
+renderChart()
