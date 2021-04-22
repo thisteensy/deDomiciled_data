@@ -54,6 +54,7 @@ var div = d3.select("body")
 var displayYear = d3.select("body")
 	.append("div")
 	.attr("class", "displayYear")
+	.style("color", "#2a4858")
 
 
 
@@ -131,8 +132,7 @@ function renderMap(year) {
 
 			displayYear.join(
 					enter => enter.append("p")
-								.text(`${year}`)
-								.style("color", "#2a4858"),
+								.text(`${year}`),
 					update => update.text(`${year}`)
 				)
 				
