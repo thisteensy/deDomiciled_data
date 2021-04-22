@@ -9,10 +9,11 @@ renderChart(state)
 function renderChart(state){	
     // var split_path = window.location.pathname.split('/')
     // var state = split_path[split_path.length -1]
-    
-    console.log(state)
-	d3.csv(`/load-state-data/${state}`).then(d => chart(d))
-	
+    function updateData(state) {
+        d3.select("#load-state").html(`${state}`)
+	    d3.csv(`/load-state-data/${state}`).then(d => chart(d))
+    };
+    d3.csv(`/load-state-data/${state}`).then(d => chart(d))
 	function chart(data) {   // a function called chart
 		// data.sort(function (a,b) {return d3.ascending(a.date, b.date);});
 		console.log(data)
@@ -78,11 +79,6 @@ function renderChart(state){
 			.attr("height", height) // sets the height to the value of the height variable
 	
 		update(d3.select('#selectbox').property('value'), 0); // calls the update function passing the value from the element with the id #selectbox
-        
-        // function updateState(state, renderMap()) {
-        //     var state = document.getElementById
-
-        // }; finish this function to update graph on state selection
 
 		function update(input, speed) {
 					  
@@ -187,5 +183,11 @@ function renderChart(state){
 			.on("change", function() {
 				update(this.value, 750);
 			})
+        var stateSelector = d3.select("#state-selector")
+            .on("change", function() {
+                updateData(this.value);
+            })
+
+        
 	}
 };
