@@ -1,7 +1,17 @@
 // const state = {{ state|tojson }};
 // 	console.log(state)
-function renderChart(){	
-	d3.csv(`/load-state-data/${Louisiana}`).then(d => chart(d))
+
+
+var state = document.getElementById("load-state").getAttribute("value");
+
+renderChart(state)
+
+function renderChart(state){	
+    // var split_path = window.location.pathname.split('/')
+    // var state = split_path[split_path.length -1]
+    
+    console.log(state)
+	d3.csv(`/load-state-data/${state}`).then(d => chart(d))
 	
 	function chart(data) {   // a function called chart
 		// data.sort(function (a,b) {return d3.ascending(a.date, b.date);});
@@ -68,7 +78,12 @@ function renderChart(){
 			.attr("height", height) // sets the height to the value of the height variable
 	
 		update(d3.select('#selectbox').property('value'), 0); // calls the update function passing the value from the element with the id #selectbox
-	
+        
+        // function updateState(state, renderMap()) {
+        //     var state = document.getElementById
+
+        // }; finish this function to update graph on state selection
+
 		function update(input, speed) {
 					  
 			var copy = keys.filter(f => f.includes(input)) // establishes a variable called copy and assigns it to the keys filtered by the includes method using the value input from the #selectbox element
@@ -174,4 +189,3 @@ function renderChart(){
 			})
 	}
 };
-renderChart()

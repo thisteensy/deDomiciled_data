@@ -62,22 +62,9 @@ var displayYear = d3.select("body")
 var years = [2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011]
 renderMap(years.pop())
 
-
-var mapInterval = setInterval(function () {
-	renderMap(years.pop())}, 3000)
-	
-
-	// 	for (var year of years) {
-// 		setInterval(function() {
-// 			renderMap(year)
-// 		}, 5000); 
-		
-// 	}
-// };
-
-
-
 function renderMap(year) {
+	var mapInterval = setInterval(function () {
+		renderMap(years.pop())}, 3000)
 	
 	d3.json(`/load-data/${year}`).then(function (state_data) {
 		console.log(year)

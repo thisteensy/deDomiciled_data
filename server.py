@@ -21,7 +21,7 @@ def all_states_landing():
 
 @app.route('/load-data/<year>')
 def send_data(year):
-   # fix this so that the map colors update properly
+   
    data = []
 
    state_data = crud.get_data_by_year(year)
@@ -116,6 +116,7 @@ def show_state(state):
           "WI":"Wisconsin",
           "WY":"Wyoming"}
    states = states.values()
+   
    
    return render_template("state.html", state = state, states = states)
    
