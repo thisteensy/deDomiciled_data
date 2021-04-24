@@ -2,8 +2,7 @@
 <html>
 <head>
   <title>Scrolling Sections</title>
-  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
-  <link rel="stylesheet" type="text/css" href="css/style.css"/>
+  <link rel="stylesheet" type="text/css" href="static/style.css"/>
 </head>
 <body>
 <div class="container">
@@ -30,23 +29,24 @@
         After creating the map I wanted to look at how different factors interacted with houselessness.
         With this chart you can choose a state and the type of data you want to look at.
         With the percent change over time feature you can see that in states where availability of low-cost housing was falling faster than poverty houselessness increases.
-            <p>Choose a state:
-              <select name="states" id="state-selector" onchange="renderChart()">
-                {% for state in states %}
-                <option>{{ state }} </option>
-                {% endfor %}
-              </select>
-            </p>
-              <p>Change data:
-                <select id="selectbox">
-                  <option value="Households Below Poverty">Households Below Poverty</option>
-                    <option value="Unhoused Population">Unhoused Population</option>
-                    <option value="Available Low Income Housing">Low Income Housing Available</option>
-                  <option value="Total Population">Total Population</option>
-                  <option value="percent_change"> Percent Change: Below Poverty, Unhoused, Low Income Housing, Population</option>
-                </select>
-                </p>
-                <svg id="chart" width="950" height="410"></svg>
+        <h1 id = "load-state">State: </h1>
+        <p>Change state:
+        <select id = "state-selector">
+          {% for state in states %}
+          <option value = "{{state}}">{{ state }}</option>
+          {% endfor %}
+        </select>
+        </p>
+        <p>Change data:
+        <select id="selectbox">
+          <option value="Households Below Poverty">Households Below Poverty</option>
+            <option value="Unhoused Population">Unhoused Population</option>
+            <option value="Available Low Income Housing">Low Income Housing Available</option>
+          <option value="Total Population">Total Population</option>
+          <option value="percent_change"> Percent Change: Below Poverty, Unhoused, Low Income Housing, Population</option>
+        </select>
+        </p>
+        <svg id="chart" width="950" height="410"></svg>
       </section>
       <section class="step">
         <div class="title">The Future</div>
@@ -67,8 +67,8 @@
 </div>
 
 
-<script src="lib/d3.js"></script>
-<script src="js/scroller.js"></script>
-<script src="js/sections.js"></script>
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<script src="static/scroller.js"></script>
+<script src="static/sections.js"></script>
 </body>
 </html>

@@ -7,8 +7,7 @@ var state = document.getElementById("load-state").getAttribute("value");
 renderChart(state)
 
 function renderChart(state){	
-    // var split_path = window.location.pathname.split('/')
-    // var state = split_path[split_path.length -1]
+    
     function updateData(state) {
         d3.select("#load-state").html(`${state}`)
 	    d3.csv(`/load-state-data/${state}`).then(d => chart(d))

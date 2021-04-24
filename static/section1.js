@@ -57,19 +57,50 @@ var displayYear = d3.select("body")
 	.style("color", "#2a4858")
 
 
+	
 
 	
 var years = [2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011]
-renderMap(years.pop())
+var copyYears = []
+
+Object.assign(copyYears, years)
+
+var mapInterval = setInterval(function () {
+	if (years.length > 0){
+		renderMap(years.pop())
+	}
+}, 1000)
+
+var restartButton = d3.select("body")
+	.append("button")
+	.text("Restart")
+	.attr("id", "restart")
+	.style("opacity", 0)
+	.style("color", "#FFFFFF")
+	.style("background-color", "#2a4858")
+	.style("border-radius", "15px")
+	.on("click", function() {
+		Object.assign(years, copyYears)
+		restartButton.style("opacity", 0)
+		mapInterval = setInterval(function () {
+			if (years.length > 0){
+				renderMap(years.pop())
+			}
+		}, 1000)
+	})
+
 
 function renderMap(year) {
-	var mapInterval = setInterval(function () {
-		renderMap(years.pop())}, 3000)
 	
+		
 	d3.json(`/load-data/${year}`).then(function (state_data) {
 		console.log(year)
-		if (year == 2019) {
+		if (years.length == 0) {
+			console.log("CLEAR")
 			clearInterval(mapInterval)
+			restartButton.style("opacity", 1)
+			console.log("BUTTON")
+
 		}
 		d3.json("/us-states.json").then(function (states_json) {
 
@@ -82,10 +113,10 @@ function renderMap(year) {
 				var dataStateID = i[0]
 
 				// Grab State Name
-				var dataState = i[2];
+				var dataState = i[2]
 
 				// Grab decile value 
-				var dataValue = i[4];
+				var dataValue = i[4]
 
 				// Grab data year
 				var dataYear = i[5]
@@ -104,7 +135,7 @@ function renderMap(year) {
 
 						// Copy the data value into the JSON
 						//has only a key 'name'
-						states_json.features[j].properties.decile = dataValue;
+						states_json.features[j].properties.decile = dataValue
 						states_json.features[j].properties.count = dataCount
 						// Stop looking through the JSON
 						
@@ -115,7 +146,7 @@ function renderMap(year) {
 			function handleClick(path) {
 				var state = path.properties.name
 				window.location.href = `/state/${state}`;
-			};
+			}
 
 			displayYear.join(
 					enter => enter.append("p")
@@ -164,13 +195,17 @@ function renderMap(year) {
 					div.html(state + "<br/>" + count)
 						.style("left", (d3.event.pageX) + "px")
 						.style("top", (d3.event.pageY - 28) + "px")
+				})
+				.on("mouseout", function(d) {       
+					div.transition()        
+					   .duration(500)      
+					   .style("opacity", 0);   
 				});
-				
 		});
 		
 	});
 
-};
+}
 
 
 
