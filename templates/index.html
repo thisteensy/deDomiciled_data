@@ -1,16 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<script src="https://d3js.org/d3.v5.min.js"></script>
-<script src="https://d3js.org/d3-selection-multi.v0.4.min.js"></script>
-<script
-			  src="https://code.jquery.com/jquery-3.6.0.js"
-			  integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-			  crossorigin="anonymous"></script>
-<style type="text/css">
+{% extends 'base.html' %}
 
-/* On mouse hover, lighten state color */
+{% block title %}Map{% endblock %}
+
+{% block head %}
+
+<style>
 
 path:hover {
 	fill-opacity: .7;
@@ -53,24 +47,24 @@ div.displayYear{
 }
 #restart{
 	position: absolute;
-	display: inline-block;
+	display: block;
 	border: none;
 	padding: 20px;
     margin: 20px;
 	font-size: 20px;
 }
-h1{
-	color:"#2a4858";
+h1.map-title{
+	color: "#2a4858";
 	text-align: center;
 }
-
-
-
 </style>
-</head>
-<body>
-	<h1 id="map-title">Change in Houseless Population Over Time</h1>
+
+
+{% endblock %}
+{% block body%}
+
+	<h1 class="map-title">Change in Unhoused Population Over Time</h1>
 	
 <script src = "/static/section1.js"></script>
-</body>
-</html>
+
+{%endblock%}

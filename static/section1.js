@@ -74,11 +74,27 @@ var mapInterval = setInterval(function () {
 var restartButton = d3.select("body")
 	.append("button")
 	.text("Restart")
-	.attr("id", "restart")
+	.attr("class", "restart")
 	.style("opacity", 0)
 	.style("color", "#FFFFFF")
 	.style("background-color", "#2a4858")
 	.style("border-radius", "15px")
+	.on("mouseover", function(d) {
+		console.log("you're IN")
+		// restartButton.transition()
+		// 				.duration(200)
+		// 				.style("opacity", .9)
+		restartButton.style("color", "#2a4858")
+			.style("background-color", "#FFFFFF")
+
+	})
+	.on("mouseout", function(d) {       
+		restartButton.transition()        
+			.duration(200)      
+			.style("color", "#FFFFFF")
+			.style("background-color", "#2a4858")
+			
+	})   
 	.on("click", function() {
 		Object.assign(years, copyYears)
 		restartButton.style("opacity", 0)
@@ -88,6 +104,7 @@ var restartButton = d3.select("body")
 			}
 		}, 1000)
 	})
+	
 
 
 function renderMap(year) {
