@@ -47,12 +47,13 @@ var svg = d3.select(".mapDiv")
 	.append("svg")
 	.attr("width", width)
 	.attr("height", height)
-	.style("align", "auto");
+	.style("position", "absolute");
+
 
 
 
 // Append Div for tooltip to SVG
-var div = d3.select("body")
+var div = d3.select(".mapDiv")
 	.append("div")
 	.attr("class", "tooltip")
 	.style("opacity", 0);
@@ -229,7 +230,7 @@ function renderMap(year) {
 
 
 // Modified Legend Code from Mike Bostock: http://bl.ocks.org/mbostock/3888852
-var legend = d3.select("body").append("svg")
+var legend = d3.select(".mapDiv").append("svg")
 	.attr("class", "legend")
 	.attr("width", 140)
 	.attr("height", 200)

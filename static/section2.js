@@ -2,6 +2,7 @@
 // 	console.log(state)
 
 
+
 var state = document.getElementById("load-state").getAttribute("value");
 
 renderChart(state)

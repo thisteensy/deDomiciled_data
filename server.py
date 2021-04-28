@@ -12,10 +12,12 @@ app = Flask(__name__)
 app.secret_key = "dev"
 app.jinja_env.undefined = StrictUndefined
 
-
+@app.route('/')
+def render_homepage():
+   return render_template("index.html")
 
 @app.route('/map')
-def all_states_landing():
+def render_map_page():
 
    return render_template('map.html')
 

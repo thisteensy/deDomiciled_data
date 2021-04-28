@@ -1,16 +1,31 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Scrolling Sections</title>
-  <link rel="stylesheet" type="text/css" href="static/style.css"/>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+{% block head %}
+{% endblock %}
+{% block body%}
 <div class="container">
   <div id='graphic'>
+    
     <div id='sections'>
-      <section class="step">
-        <div class="title">The deDomiciled Project</div>
-        Welcome to the deDomiciled Project<br/><br/>An exploration of data regarding unhoused citizens.
+      
+        <div class="title"><h1>The deDomiciled Project</h1></div>
+        <h3>Welcome to the deDomiciled Project: An exploration of the data of unhoused citizens.</h3>
+        <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img class="d-block w-100" src="static/matt-collamer-8UG90AYPDW4-unsplash.jpeg" alt="First slide">
+              <h6>Photo by <a href="https://unsplash.com/@breakyourboundaries4?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Matt Collamer</a> on <a href="https://unsplash.com/s/photos/homelessness?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></h4>
+            </div>
+            <div class="carousel-item">
+              <img class="d-block w-100" src="static/nathan-dumlao-i__uqGnARyI-unsplash.jpeg" alt="Second slide">
+              <h6>Photo by <a href="https://unsplash.com/@nate_dumlao?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Nathan Dumlao</a> on <a href="https://unsplash.com/s/photos/homelessness?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></h4>
+            </div>
+            <!-- <div class="carousel-item">
+              <img class="d-block w-100" src="..." alt="Third slide">
+            </div> -->
+          </div>
+        </div>
       </section>
       <section class="step">
         <div class="title">About</div>
@@ -18,7 +33,7 @@
       </section>
       <section class="step">
         <div class="title">The Map</div>
-        Using available Point in Time counts of unhoused people, I created this map.<br/>
+        Using available Point in Time counts of unhoused people from the US Department of Housing and Urban Development, I created this map.<br/>
         As we progress from 2011 to 2019 you can see how some states improve and some states get worse.<br/>
         You can hover over the states to see the exact numbers of unhoused people per 100,000 residents.<br/>
         Pay attention to Lousiana. They went from having one of the counts per 100,000 after Hurricaine Katrina to one of the lowest.<br/>
@@ -29,24 +44,6 @@
         After creating the map I wanted to look at how different factors interacted with houselessness.
         With this chart you can choose a state and the type of data you want to look at.
         With the percent change over time feature you can see that in states where availability of low-cost housing was falling faster than poverty houselessness increases.
-        <h1 id = "load-state">State: </h1>
-        <p>Change state:
-        <select id = "state-selector">
-          {% for state in states %}
-          <option value = "{{state}}">{{ state }}</option>
-          {% endfor %}
-        </select>
-        </p>
-        <p>Change data:
-        <select id="selectbox">
-          <option value="Households Below Poverty">Households Below Poverty</option>
-            <option value="Unhoused Population">Unhoused Population</option>
-            <option value="Available Low Income Housing">Low Income Housing Available</option>
-          <option value="Total Population">Total Population</option>
-          <option value="percent_change"> Percent Change: Below Poverty, Unhoused, Low Income Housing, Population</option>
-        </select>
-        </p>
-        <svg id="chart" width="950" height="410"></svg>
       </section>
       <section class="step">
         <div class="title">The Future</div>
@@ -65,10 +62,10 @@
     </div>
   </div>
 </div>
-
-
-<script src="https://d3js.org/d3.v5.min.js"></script>
+<!-- <script src="https://d3js.org/d3.v5.min.js"></script>
 <script src="static/scroller.js"></script>
-<script src="static/sections.js"></script>
-</body>
+<script src="static/sections.js"></script> -->
+
+{%endblock%}
+
 </html>
