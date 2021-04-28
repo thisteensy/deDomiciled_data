@@ -7,15 +7,16 @@
 <style>
 body {
     margin:auto;	
-    width: 885px;
+    /* width: 885px; */
     font: 10px arial;
-    padding: 25px;
+    /* padding: 25px; */
     font-size: 11px;
 
 }</style>
 {% endblock %}
 
 {% block body %}
+<div class="container">
 <h1 id = "load-state" value = "{{state}}">State: {{ state }}</h1>
 <p>Change state:
 <select id = "state-selector">
@@ -25,16 +26,17 @@ body {
 </select>
 </p>
 <p>Change data:
-<select id="selectbox">
-	<option value="Households Below Poverty">Households Below Poverty</option>
-    <option value="Unhoused Population">Unhoused Population</option>
-    <option value="Available Low Income Housing">Low Income Housing Available</option>
-	<option value="Total Population">Total Population</option>
-	<option value="percent_change"> Percent Change: Below Poverty, Unhoused, Low Income Housing, Population</option>
-</select>
+    <select id="selectbox">
+        <option value="Households Below Poverty">Households Below Poverty</option>
+        <option value="Unhoused Population">Unhoused Population</option>
+        <option value="Available Low Income Housing">Low Income Housing Available</option>
+        <option value="Total Population">Total Population</option>
+        <option value="percent_change"> Percent Change: Below Poverty, Unhoused, Low Income Housing, Population</option>
+    </select>
 </p>
-<svg id="chart" width="950" height="410"></svg>
 
+    <svg id="chart" width="950" height="410"></svg>
+</div>
 <script src = "/static/section2.js"></script>
 
 {% endblock %}

@@ -20,22 +20,26 @@ div.tooltip {
         
 /* Map Legend Font Style */
 body {
-	font: 11px sans-serif;
+	font-family: 'Montserrat', sans-serif;;
+	
+
+}
+div.mapDiv {
+	align-items: center;
+
 }
         
 /* Legend Position Style */
 .legend {
 	position:absolute;
-	left:800px;
+	left:850px;
 	top:350px;
 }
 div.displayYear{
 	position: absolute;
-	font: 30px sans-serif;
-    padding: 20px;
-    margin: 20px;
-    color: "#2a4858";
-    font-weight: bold;
+	font-family: 'Montserrat', sans-serif;
+    /* padding: 20px; */
+    margin-top: 20px;
     display: inline-block;
 }
 .restart{
@@ -45,10 +49,12 @@ div.displayYear{
 	padding: 20px;
     margin: 20px;
 	font-size: 20px;
+	align: right;
 }
 h1.map-title{
 	color: "#2a4858";
 	text-align: center;
+	padding-top: 10px
 }
 
 /* style for chart */
@@ -77,4 +83,13 @@ h1.map-title{
 }
 .hoverCircle {
     opacity: .75;
+}
+/* #chart {
+	margin-left:auto; 
+	margin-right:auto; 
+	display:block;
+
+} */
+#load-state {
+	padding-top: 10px;
 }

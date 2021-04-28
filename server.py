@@ -14,10 +14,10 @@ app.jinja_env.undefined = StrictUndefined
 
 
 
-@app.route('/')
+@app.route('/map')
 def all_states_landing():
 
-   return render_template('index.html')
+   return render_template('map.html')
 
 @app.route('/load-data/<year>')
 def send_data(year):
