@@ -16,7 +16,7 @@ http://bl.ocks.org/mbostock/3888852  */
 
 
 //Width and height of map
-var width = 960;
+var width = 800;
 var height = 500;
 
 // D3 Projection
@@ -34,17 +34,19 @@ var color = d3.scaleLinear()
 	.range(["#fafa6e", "#c4ec74", "#92dc7e", "#64c987", "#39b48e", "#089f8f", "#00898a", "#08737f", "#215d6e", "#2a4858"])
 	.domain([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
 
-var legendText = ["91+ decile", "81-90 perecentile", "71-80 decile", "61-70 decile", "51-60 decile",
+var legendText = ["91+ decile", "81-90 decile", "71-80 decile", "61-70 decile", "51-60 decile",
 	"41-50 decile", "31-40 decile", "21-30 decile", "11-20 decile", "1-10 decile"];
-var mapDiv =d3.select("body")
+
+var mapDiv =d3.select(".col-md-8")
 	.append("div")
 	.attr("class", "mapDiv")
-	.attr("width", "100%")
-	.attr("height", "100%")
-	.style("align", "center");
+	.attr("width", "900")
+	.attr("height", "550");
+
 //Create SVG element and append map to the SVG
 var svg = d3.select(".mapDiv")
 	.append("svg")
+	// .attr("class", "map-svv")
 	.attr("width", width)
 	.attr("height", height)
 	.style("position", "absolute");
@@ -59,7 +61,7 @@ var div = d3.select(".mapDiv")
 	.style("opacity", 0);
 
 var displayYear = d3.select(".mapDiv")
-	.append("div")
+	.append("text")
 	.attr("class", "displayYear")
 	.style("color", "#2a4858")
 	.style("font-size", "30px")

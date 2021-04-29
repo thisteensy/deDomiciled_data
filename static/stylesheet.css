@@ -1,3 +1,13 @@
+/* style for index page */
+
+body {
+	font-family: 'Montserrat', sans-serif;
+}
+
+.carousel { 
+	width:640px; height:360px; 
+}
+
 /* style for map */
 path:hover {
 	fill-opacity: .7;
@@ -17,35 +27,35 @@ div.tooltip {
 	border-radius: 8px;           
 	pointer-events: none;         
 }
-        
-/* Map Legend Font Style */
-
 
 div.mapDiv {
 	align-items: center;
-
+}
+.col-md-4 {
+	margin-top: 100;
 }
         
 /* Legend Position Style */
 .legend {
 	position:absolute;
-	left:850px;
-	top:350px;
+	left:730px;
+	top:265px;
 }
-div.displayYear{
+.displayYear{
 	position: absolute;
 	font-family: 'Montserrat', sans-serif;
-    /* padding: 20px; */
-    margin-top: 20px;
-	padding-top: 20px;
+	padding-top: 200px;
+	padding-left: 735px;
     display: inline-block;
+	z-index: -1;
 }
 .restart{
 	position: absolute;
 	display: block;
 	border: 2px, "#2a4858";
-	padding: 20px;
-    margin: 20px;
+	font-family: 'Montserrat', sans-serif;
+	padding: 10px;
+    margin-left: 400px;
 	font-size: 20px;
 }
 h1.map-title{
