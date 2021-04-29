@@ -4,9 +4,45 @@ body {
 	font-family: 'Montserrat', sans-serif;
 }
 
-.carousel { 
-	width:640px; height:360px; 
+a:link { text-decoration: none; }
+
+
+a:visited { text-decoration: none; }
+
+
+a:hover { text-decoration: none; }
+
+
+a:active { text-decoration: none; }
+
+.row-height{
+	height: 100vh;
+  }
+
+.left {
+	height: 100%;
+  	overflow-y: scroll;
 }
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+}
+
+* {
+  -ms-overflow-style: none !important;
+}
+
+#index-image {
+	/* background-image: url("static/matt-collamer-8UG90AYPDW4-unsplash.jpeg"); */
+	background-color: #cccccc;
+  	background-position: center;
+  	background-repeat: no-repeat;
+  	background-size: contain;
+	position: relative;
+}
+/* .carousel-item { 
+	width:auto; height:auto; 
+} */
 
 /* style for map */
 path:hover {
