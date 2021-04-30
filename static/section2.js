@@ -1,6 +1,3 @@
-// const state = {{ state|tojson }};
-// 	console.log(state)
-
 
 
 var state = document.getElementById("load-state").getAttribute("value");
@@ -16,7 +13,6 @@ function renderChart(state){
     d3.csv(`/load-state-data/${state}`).then(d => chart(d))
 	function chart(data) {   // a function called chart
 		// data.sort(function (a,b) {return d3.ascending(a.date, b.date);});
-		console.log(data)
 		var keys = data.columns.slice(1); // creates a variable called keys sets the value to the header after beginning with the second element
 	
 		var parseTime = d3.timeParse("%Y"), // creates variables for methods for handling dates
@@ -185,7 +181,7 @@ function renderChart(state){
 			})
         var stateSelector = d3.select("#state-selector")
             .on("change", function() {
-                updateData(this.value);
+                updateData(this.value, 750);
             })
 
         

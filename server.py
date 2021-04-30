@@ -14,12 +14,12 @@ app.jinja_env.undefined = StrictUndefined
 
 @app.route('/')
 def render_homepage():
-   return render_template("index.html")
+   return render_template("index.html", home="active", map="", chart="" )
 
 @app.route('/map')
 def render_map_page():
 
-   return render_template('map.html')
+   return render_template('map.html', home="", map="active", chart="")
 
 @app.route('/load-data/<year>')
 def send_data(year):
@@ -120,7 +120,7 @@ def show_state(state):
    states = states.values()
    
    
-   return render_template("state.html", state = state, states = states)
+   return render_template("state.html", state = state, states = states, home="", map="", chart="active")
    
 
 @app.route('/load-state-data/<state>')

@@ -6,7 +6,7 @@ body {
 	font-family: 'Montserrat', sans-serif;
 }
 
-a:link { text-decoration: none; }
+/* a:link { text-decoration: none; }
 
 
 a:visited { text-decoration: none; }
@@ -15,7 +15,7 @@ a:visited { text-decoration: none; }
 a:hover { text-decoration: none; }
 
 
-a:active { text-decoration: none; }
+a:active { text-decoration: none; } */
 
 .row-height{
 	height: 100vh;

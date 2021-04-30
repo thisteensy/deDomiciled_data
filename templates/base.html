@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <link rel="shortcut icon" href="static/favicon.ico">
+    <link rel="shortcut icon" href="/static/favicon.ico">
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://d3js.org/d3-selection-multi.v0.4.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.js"
@@ -39,23 +39,24 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                <li class="nav-item">
+                    <a class= "nav-link {{ home }}" href="/">Home<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/map">Map</a>
+                    <a class="nav-link {{ map }}" href="/map">Map</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/state/Alabama">Chart</a>
+                    <a class="nav-link {{ chart }}" href="/state/Alabama">Chart</a>
                 </li>
             </ul>
     </nav>
     <script>
-        $(".nav .nav-link").on("click", function () {
-            $(".nav").find(".active").removeClass("active");
-            $(this).addClass("active");
-        });
 
+            $(".nav-link").on("click", function () {
+                $(".nav-link").find(".active").removeClass("active");
+                $(this).addClass("active");
+                console.log("something")
+            });
     </script>
     {% for msg in get_flashed_messages() %}
     <p class="flash-msg">
