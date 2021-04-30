@@ -81,7 +81,7 @@ var mapInterval = setInterval(function () {
 	}
 }, 1000)
 
-var restartButton = d3.select(".mapDiv")
+var restartButton = d3.selectAll("#map-page")
 	.append("button")
 	.text("Restart")
 	.attr("class", "restart")
