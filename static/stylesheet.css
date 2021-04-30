@@ -94,12 +94,17 @@ div.mapDiv {
 	border: 2px, "#2a4858";
 	font-family: 'Montserrat', sans-serif;
 	padding: 10px;
+	margin-left: 1100px;
+	margin-top: 480px;
 	font-size: 20px;
 }
 .map-title{
 	color: "#2a4858";
 	text-align: center;
-	padding-top: 50px;
+	padding-top: 60px;
+}
+#map-page {
+	padding-right: 50px;
 }
 
 /* style for chart */
@@ -135,9 +140,21 @@ div.mapDiv {
 	display:block;
 
 } */
-h1#load-state {
-	padding-top: 10px;
+.chart-title {
+	padding-top: 60px;
+}
+
+h3#load-state {
+	padding-top: 50px;
 }
 div.container {
 	padding: 20px
+}
+#chart-div {
+
+	padding-left: 50px
+}
+
+#chart-page {
+	padding-right: 50px;
 }

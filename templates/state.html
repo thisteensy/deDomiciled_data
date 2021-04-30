@@ -16,27 +16,46 @@ body {
 {% endblock %}
 
 {% block body %}
-<div class="container">
-<h1 id = "load-state" value = "{{state}}" text-align ="center">{{ state }}</h1>
-<p>Change state:
-<select id = "state-selector">
-	{% for state in states %}
-	<option value = "{{state}}">{{ state }}</option>
-	{% endfor %}
-</select>
-</p>
-<p>Change data:
-    <select id="selectbox">
-        <option value="Households Below Poverty">Households Below Poverty</option>
-        <option value="Unhoused Population">Unhoused Population</option>
-        <option value="Available Low Income Housing">Low Income Housing Available</option>
-        <option value="Total Population">Total Population</option>
-        <option value="percent_change"> Percent Change: Below Poverty, Unhoused, Low Income Housing, Population</option>
-    </select>
-</p>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-8" id="chart-div">
+            <h3 id = "load-state" value = "{{state}}" text-align ="center">{{ state }}</h3>
+            <p>Change state:
+            <select id = "state-selector">
+                <option>Choose a state</option>
+                {% for state in states %}
+                <option value = "{{state}}">{{ state }}</option>
+                {% endfor %}
+            </select>
+            </p>
+            <p>Change data:
+                <select id="selectbox">
+                    <option value="Households Below Poverty">Households Below Poverty</option>
+                    <option value="Unhoused Population">Unhoused Population</option>
+                    <option value="Available Low Income Housing">Low Income Housing Available</option>
+                    <option value="Total Population">Total Population</option>
+                    <option value="percent_change"> Percent Change: Below Poverty, Unhoused, Low Income Housing, Population</option>
+                </select>
+            </p>
+            
+            <svg id="chart" width="950" height="410"></svg>
+            
+            <script src = "/static/section2.js"></script> 
+		</div>
+		<div class="col-md-4" id="chart-page">
+            <h4 class="chart-title">Chart Functionality</h4>
+        </br></br>
+            By using the drop down menus you can change the state and the type of data you're viewing.
+            <br><br>
+            While viewing an individual element the y-axis will populate with actual counts from the US Census
+            Bureau or the Department of Housing and Urban Development. If you choose the multi-input option,
+            the y-axis will display the percent change over the prior year's data.
+            
+            
 
-    <svg id="chart" width="950" height="410"></svg>
+		</div>
+	</div>
 </div>
-<script src = "/static/section2.js"></script>
+
 
 {% endblock %}

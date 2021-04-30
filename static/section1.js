@@ -75,13 +75,15 @@ var copyYears = []
 
 Object.assign(copyYears, years)
 
+renderMap(years.pop())
+
 var mapInterval = setInterval(function () {
 	if (years.length > 0) {
 		renderMap(years.pop())
 	}
-}, 1000)
+}, 3000)
 
-var restartButton = d3.selectAll("#map-page")
+var restartButton = d3.selectAll(".mapDiv")
 	.append("button")
 	.text("Restart")
 	.attr("class", "restart")
@@ -93,6 +95,7 @@ var restartButton = d3.selectAll("#map-page")
 	.on("mouseover", function (d) {
 		restartButton.style("color", "#2a4858")
 			.style("background-color", "#FFFFFF")
+			.style("cursor", "pointer")
 	})
 	.on("mouseout", function (d) {
 		restartButton.transition()
@@ -103,11 +106,12 @@ var restartButton = d3.selectAll("#map-page")
 	.on("click", function () {
 		Object.assign(years, copyYears)
 		restartButton.style("opacity", 0)
+		renderMap(years.pop())
 		mapInterval = setInterval(function () {
 			if (years.length > 0) {
 				renderMap(years.pop())
 			}
-		}, 1000)
+		}, 3000)
 	})
 
 
@@ -211,6 +215,7 @@ function renderMap(year) {
 				.on("mouseover", function (d) {
 					var state = d.properties.name
 					var count = d.properties.count
+
 					div.transition()
 						.duration(200)
 						.style("opacity", .9);
