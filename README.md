@@ -2,36 +2,18 @@
 
 ### Overview
 
-This project will correlate data about the unhoused population in the United States and offer users different ways of interacting with that data on a map.
+deDomiciled Data was created to offer a way to view the problem of houselessness as a systemic social issue by correlating data about the unhoused population in the United States with other related data. It combines data from the Dept. of Housing and Urban Development and US Census Bureau to create two features, a map and a chart, both of which are rendered using the d3 Javascript library. The animated map colorfully illustrates the change in the unhoused population over time. It has a mouseover feature which reveals count data in individual states, and clickable states which lead to the chart feature. The chart allows a choice of state and the type of data to view, and has a tooltip, which reveals exact y-axis numbers on mouseover.
 
-### Technologies required (besides typical Hackbright tech stack)
 
-- List any APIs or data sources you're planning on using here
+### Technologies required
+
+see requirements.txt
 
 ### Data
 
 - HUD PIT count data
 - US Census count
 - Low Income Rental Housing Inventory data
-- Per Capital State Spending on Mental Health Services
-
-### Roadmap
-
-#### MVP
-
-- Display map of the US with each state linked to a detail page with the most current available year's data
-- Multiple maps for each type of data, with choice of year to display
-- color banding to indicate state performance according to data
-
-#### 2.0
-
-- choice of data year for each map/state detail page
-- Data analysis of changes over time for available data years
-
-#### 3.0
-
-- year slider on each map
-- mouseover for each state's data for chosen year
 
 ### Notes
 

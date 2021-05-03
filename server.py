@@ -1,3 +1,4 @@
+import os
 from flask import (Flask, render_template, request, flash, session,
                    redirect, jsonify)
 from model import connect_to_db
@@ -9,21 +10,22 @@ from jinja2 import StrictUndefined
 
 
 app = Flask(__name__)
-app.secret_key = "dev"
+app.secret_key = os.environ["FLASK_KEY"]
 app.jinja_env.undefined = StrictUndefined
 
 @app.route('/')
 def render_homepage():
+   """renders the index template"""
    return render_template("index.html", home="active", map="", chart="" )
 
 @app.route('/map')
 def render_map_page():
-
+   """renders the map template"""
    return render_template('map.html', home="", map="active", chart="")
 
 @app.route('/load-data/<year>')
 def send_data(year):
-   
+   """sends data to the browser for the map template"""
    data = []
 
    state_data = crud.get_data_by_year(year)
@@ -62,11 +64,13 @@ def send_data(year):
 
 @app.route("/us-states.json")
 def send_states():
-
+   """sends the state data used to render the map path"""
    return open("us-states.json", "r").read()
 
 @app.route('/state/<state>') 
 def show_state(state):
+   """renders the state template"""
+
    states = {"AL":"Alabama",
           "AK":"Alaska",
           "AZ":"Arizona",
@@ -125,7 +129,7 @@ def show_state(state):
 
 @app.route('/load-state-data/<state>')
 def send_yearsdata(state):
-
+   """sends the data to the browser to render the chart"""
    dict_data_unsorted = []
    state_data = crud.get_data_by_state(state)
    
@@ -165,18 +169,6 @@ def send_yearsdata(state):
          writer.writerow(data)
    
    return open("state_data.csv", "r").read()
-   
-
-
-
-# # @app.route('/about')
-
-# #     """returns project about page"""
-# #     pass
-
-# # @app.route('/state')
-# #     """get state by state id"""
-# #     pass
 
 if __name__ == '__main__':
     connect_to_db(app)

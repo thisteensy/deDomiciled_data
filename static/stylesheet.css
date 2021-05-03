@@ -1,12 +1,15 @@
 /* style for base */
 
-/* style for index page */
+
 
 body {
 	font-family: 'Montserrat', sans-serif;
 }
 
-/* a:link { text-decoration: none; }
+/* style for index page */
+
+/* removes outdated behavior from links */
+a:link { text-decoration: none; }
 
 
 a:visited { text-decoration: none; }
@@ -15,7 +18,9 @@ a:visited { text-decoration: none; }
 a:hover { text-decoration: none; }
 
 
-a:active { text-decoration: none; } */
+a:active { text-decoration: none; }
+
+/* formats the left div as scrollable */
 
 .row-height{
 	height: 100vh;
@@ -35,16 +40,12 @@ a:active { text-decoration: none; } */
 }
 
 #index-image {
-	/* background-image: url("static/matt-collamer-8UG90AYPDW4-unsplash.jpeg"); */
 	background-color: #cccccc;
   	background-position: center;
   	background-repeat: no-repeat;
   	background-size: contain;
 	position: relative;
 }
-/* .carousel-item { 
-	width:auto; height:auto; 
-} */
 
 /* style for map */
 path:hover {
@@ -80,6 +81,9 @@ div.mapDiv {
 	left:750px;
 	top:300px;
 }
+
+/* style for the year being displayed */
+
 .displayYear{
 	position: absolute;
 	font-family: 'Montserrat', sans-serif;
@@ -88,6 +92,9 @@ div.mapDiv {
     display: inline-block;
 	z-index: -1;
 }
+
+/* style for the restart button */
+
 .restart{
 	position: absolute;
 	display: block;
@@ -98,6 +105,9 @@ div.mapDiv {
 	margin-top: 480px;
 	font-size: 20px;
 }
+
+/* style for the text div */
+
 .map-title{
 	color: "#2a4858";
 	text-align: center;
@@ -134,14 +144,9 @@ div.mapDiv {
 .hoverCircle {
     opacity: .75;
 }
-/* #chart {
-	margin-left:auto; 
-	margin-right:auto; 
-	display:block;
 
-} */
 .chart-title {
-	padding-top: 60px;
+	padding-top: 40px;
 }
 
 h3#load-state {
@@ -155,6 +160,10 @@ div.container {
 	padding-left: 50px
 }
 
-#chart-page {
+/* style for the text div */
+
+.chart-page {
 	padding-right: 50px;
+	height: 100%;
+  	overflow-y: scroll
 }

@@ -55,6 +55,8 @@ states = {"AL":"Alabama",
           "WY":"Wyoming"}
 homeless_count_by_state = []
 def pitcount_to_dictlist():
+    """reads data from csv and creates a list"""
+
     global homeless_count_by_state
     directory = "data/PIT_csv_years"
     n = len(homeless_count_by_state)
@@ -82,28 +84,10 @@ def pitcount_to_dictlist():
                         else:
                             continue
 
-# def smhaspending_to_dictlist():
-#     global homeless_count_by_state
-#     directory = "data/SMHA_Exp_years"
-#     undesirable_chars = ',$'
-#     n = len(homeless_count_by_state)
-#     for filename in os.listdir(directory):
-#         if filename.endswith(".csv"):
-#             with open(f"data/SMHA_Exp_years/{filename}", newline='') as csvfile:
-#                 for row in csv.DictReader(csvfile, delimiter=' '):
-#                     year = int(filename[:4])
-#                     name = row["State"].replace('-', ' ')
-                    
-#                     per_capita = int(float(row["per_capita"].lstrip('$').replace(',', '')))
-                    
-#                     if name in states.values():
-#                         state_id = list(states.keys())[list(states.values()).index(name)]
-
-#                     filtered_list = [i for i in homeless_count_by_state if i.get('state_id') == state_id and i.get('data_year') == year]
-#                     if filtered_list:
-#                         filtered_list[0]['state_pc_mh_spending'] = per_capita
                     
 def lowrent_count_to_dictlist():
+    """reads low income housing data from Pandas dataframe and adds it to a list"""
+
     global homeless_count_by_state
     for state, timeseries in api_fetcher.get_low_rent_count().items():
         for year, count in timeseries.items():
@@ -112,6 +96,8 @@ def lowrent_count_to_dictlist():
                 filtered_list[0]["li_rental_inv"] = int(count)
 
 def belowpoverty_population_to_dictlist():
+    """reads population below poverty data from Pandas dataframe and adds it into a list"""
+
     global homeless_count_by_state
     for state, timeseries in api_fetcher.get_belowpoverty_population().items():
         for year, count in timeseries.items():
@@ -120,6 +106,8 @@ def belowpoverty_population_to_dictlist():
                 filtered_list[0]["state_below_poverty"] = int(count)
 
 def state_population_to_dictlist():
+    """reads population below poverty data from Pandas dataframe and adds it into a list"""
+
     global homeless_count_by_state
     for state, timeseries in api_fetcher.get_state_population().items():
         for year, count in timeseries.items():
@@ -132,7 +120,6 @@ def state_population_to_dictlist():
 
 
 pitcount_to_dictlist()
-# smhaspending_to_dictlist()
 lowrent_count_to_dictlist()
 belowpoverty_population_to_dictlist()
 state_population_to_dictlist()
