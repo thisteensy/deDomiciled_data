@@ -1,0 +1,1 @@
+export FLASK_KEY="mcv9olhuvduvifbpiviwg[BGOLGÒIZSMXUR8["
